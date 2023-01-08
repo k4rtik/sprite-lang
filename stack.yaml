@@ -12,5 +12,5 @@ extra-deps:
 - git: https://github.com/ucsd-progsys/liquid-fixpoint
   commit: d77c1eb45dc2ac73c5c547ed3353215ec329c65b
 
-compiler: ghc-8.10.2
+compiler: ghc-8.10.7
 allow-newer: true
