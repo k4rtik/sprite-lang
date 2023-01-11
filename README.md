@@ -23,12 +23,6 @@ Using `stack`
 stack build
 ```
 
-or
-
-```sh
-cabal build
-```
-
 Tested with GHC 8.10.7. If you run into LLVM-related errors, especially on an Apple M1 machine, [install llvm@13 using homebrew](https://www.reddit.com/r/haskell/comments/ufgf2a/comment/ioxzcuz/?context=3).
 
 ## Run on a single file
