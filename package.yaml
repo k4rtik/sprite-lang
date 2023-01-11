@@ -1,4 +1,4 @@
-name:                sprite 
+name:                sprite
 version:             0.1.0.0
 github:              "ranjitjhala/sprite"
 license:             MIT
@@ -17,22 +17,22 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/sprite#readme>
+description:         Please see the README on GitHub at <https://github.com/ranjitjhala/sprite-lang#readme>
 
 dependencies:
 - base >= 4.7 && < 5
 - liquid-fixpoint >= 0.8
 - cmdargs
-- process 
-- directory 
+- process
+- directory
 - filepath
 - containers
 - unordered-containers
-- deepseq 
+- deepseq
 - pretty
 - parsec
 - parser-combinators
-- megaparsec >= 7.0.0 && < 9 
+- megaparsec >= 7.0.0 && < 10
 - mtl
 
 library:
@@ -67,4 +67,3 @@ tests:
     - tasty-hunit
     - tasty-rerun
     - transformers
-
