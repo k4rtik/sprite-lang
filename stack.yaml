@@ -11,4 +11,4 @@ extra-deps:
 - tasty-rerun-1.1.14
 - rest-rewrite-0.3.0
 - git: https://github.com/ucsd-progsys/liquid-fixpoint
-  commit: 92e434da5653c5d75e1f6f1bd687bc0dc9d8acdf
+  commit: a418d1039864f51c813622a6b0d7d658ff63fbcd

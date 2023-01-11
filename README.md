@@ -26,7 +26,7 @@ stack build
 or
 
 ```sh
-cabal v2-build
+cabal build
 ```
 
 Tested with GHC 8.10.7. If you run into LLVM-related errors, especially on an Apple M1 machine, [install llvm@13 using homebrew](https://www.reddit.com/r/haskell/comments/ufgf2a/comment/ioxzcuz/?context=3).
@@ -58,11 +58,11 @@ test/L8/pos/.liquid/listSet.re.smt2
 
 ## Languages
 
-- [*] Lang1 : STLC + Annot         (refinements 101)
-- [*] Lang2 : ""   + Branches      (path-sensitivity)
-- [*] Lang3 : ""   + *-refinements (inference + qual-fixpoint)
-- [*] Lang4 : ""   + T-Poly        (type-polymorphism)
-- [*] Lang5 : ""   + Data          (datatypes & measures)
-- [*] Lang6 : ""   + R-Poly        (refinement-polymorphism)
-- [*] Lang7 : ""   + Termination   (metrics + invariants)
-- [*] Lang8 : ""   + Reflection    (proofs)
+- [x] Lang1: STLC + Annot         (refinements 101)
+- [x] Lang2: ""   + Branches      (path-sensitivity)
+- [x] Lang3: ""   + *-refinements (inference + qual-fixpoint)
+- [x] Lang4: ""   + T-Poly        (type-polymorphism)
+- [x] Lang5: ""   + Data          (datatypes & measures)
+- [x] Lang6: ""   + R-Poly        (refinement-polymorphism)
+- [x] Lang7: ""   + Termination   (metrics + invariants)
+- [x] Lang8: ""   + Reflection    (proofs)
