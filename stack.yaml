@@ -12,5 +12,3 @@ extra-deps:
 - rest-rewrite-0.3.0
 - git: https://github.com/ucsd-progsys/liquid-fixpoint
   commit: 92e434da5653c5d75e1f6f1bd687bc0dc9d8acdf
-
-# compiler: ghc-8.10.7

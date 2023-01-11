@@ -1,58 +1,60 @@
 # SPRITE
 
-An tutorial-style implementation of liquid/refinement types for a subset of Ocaml/Reason.
+A tutorial-style implementation of liquid/refinement types for a subset of Ocaml/Reason.
 
 ## Install
 
-**1. Get Z3** 
+1. Get Z3
 
 [Download from here](https://github.com/Z3Prover/z3/releases) and make sure `z3` is on your `$PATH`
 
-**2. Clone the repository**
+2. Clone the repository
 
-```
-$ git clone git@github.com:ranjitjhala/sprite-lang.git
-$ cd sprite-lang
-```
-
-**3. Build** 
-
-Using `stack` 
-
-```
-$ stack build
+```sh
+git clone git@github.com:ranjitjhala/sprite-lang.git
+cd sprite-lang
 ```
 
-or 
+3. Build
 
+Using `stack`
+
+```sh
+stack build
 ```
-$ cabal v2-build
+
+or
+
+```sh
+cabal v2-build
 ```
+
+Tested with GHC 8.10.7. If you run into LLVM-related errors, especially on an Apple M1 machine, [install llvm@13 using homebrew](https://www.reddit.com/r/haskell/comments/ufgf2a/comment/ioxzcuz/?context=3).
 
 ## Run on a single file
 
-```
-$ stack exec -- sprite 8 test/L8/pos/listSet.re
+```sh
+stack exec -- sprite 8 test/L8/pos/listSet.re
 ```
 
-The `8` indicates the *language-level* -- see below.
+The `8` indicates the *language level* -- see below.
 
 ## Horn VC
 
-When you run `sprite N path/to/file.re` 
+When you run `sprite N path/to/file.re`
 the generated Horn-VC is saved in `path/to/.liquid/file.re.smt2`.
 
-So for example 
+So, for example:
 
-```
-$ stack exec -- sprite 8 test/L8/pos/listSet.re
+```sh
+stack exec -- sprite 8 test/L8/pos/listSet.re
 ```
 
-will generate a VC in 
+will generate a VC in
 
-```
+```sh
 test/L8/pos/.liquid/listSet.re.smt2
-``` 
+```
 
 ## Languages
 

@@ -13,16 +13,16 @@ An tutorial-style implementation of liquid/refinement types for a subset of Ocam
 - [*] Lang7 : ""   + Termination   (metrics + invariants)
 - [-] Lang8 : ""   + Reflection    (proofs)
 - [ ] well-formedness
-- [ ] L7 Invariant & Validity 
+- [ ] L7 Invariant & Validity
 - [ ] intro
 - [ ] outro
 
-## TODO: Code 
+## TODO: Code
 
 - [*] Save Horn QUERY
 - [ ] ANF
 
-## L7 Invariant & Validity 
+## L7 Invariant & Validity
 
 ```
 I, G, f_k |- t
@@ -339,7 +339,7 @@ G |- letrec f = (e1:t1) in e2  <== t2
 #### Synthesis
 
 **Note** Only when you add branches do you need
-the singleton rule for variable lookup: without it 
+the singleton rule for variable lookup: without it
 `abs00.re` doesn't check!
 
 
@@ -362,7 +362,7 @@ singleton(G, x) = v:b{p /\ v = x}  if  G(x) = b[v|p]
 ```haskell
 check g (EIf v e1 e2) t = ((x :: v) => c1) /\ ((x :: ~v) => c2)
   where
-    c1 = check g e1 t  
+    c1 = check g e1 t
     c2 = check g e2 t
     x  = fresh
 
@@ -557,7 +557,7 @@ G, a |- e <== s
 G |- Λ a. e <== all a. s
 ```
 
-#### Synthesis 
+#### Synthesis
 
 ```txt
 G |- e ==> all a. s
