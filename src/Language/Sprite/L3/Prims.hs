@@ -7,31 +7,31 @@ import qualified Data.Map                    as M
 import qualified Language.Fixpoint.Types     as F
 import qualified Language.Sprite.Common.UX   as UX
 -- import qualified Language.Sprite.Common.Misc as Misc
-import           Language.Sprite.L3.Types 
+import           Language.Sprite.L3.Types
 import           Language.Sprite.L3.Parse
 
 -- | Primitive Types --------------------------------------------------
 
 constTy :: F.SrcSpan -> Prim -> RType
-constTy _ (PInt  n)     = TBase TInt  (known $ F.exprReft (F.expr n)) 
+constTy _ (PInt  n)     = TBase TInt  (known $ F.exprReft (F.expr n))
 constTy _ (PBool True)  = TBase TBool (known $ F.propReft F.PTrue)
 constTy _ (PBool False) = TBase TBool (known $ F.propReft F.PFalse)
 constTy l (PBin  o)     = binOpTy l o
 
 
-binOpTy :: F.SrcSpan -> PrimOp -> RType 
-binOpTy l o = Mb.fromMaybe err (M.lookup o binOpEnv) 
-  where 
+binOpTy :: F.SrcSpan -> PrimOp -> RType
+binOpTy l o = Mb.fromMaybe err (M.lookup o binOpEnv)
+  where
     err     = UX.panicS ("Unknown PrimOp: " ++ show o) l
 
 bTrue :: Base -> RType
 bTrue b = TBase b mempty
 
 binOpEnv :: M.Map PrimOp RType
-binOpEnv = M.fromList 
+binOpEnv = M.fromList
   [ (BPlus , mkTy "x:int => y:int => int[v|v=x+y]")
-  , (BMinus, mkTy "x:int => y:int => int[v|v=x-y]") 
-  , (BTimes, mkTy "x:int => y:int => int[v|v=x*y]") 
+  , (BMinus, mkTy "x:int => y:int => int[v|v=x-y]")
+  , (BTimes, mkTy "x:int => y:int => int[v|v=x*y]")
 
   , (BLt   , mkTy "x:int => y:int => bool[v|v <=> (x <  y)]")
   , (BLe   , mkTy "x:int => y:int => bool[v|v <=> (x <= y)]")
@@ -45,14 +45,14 @@ binOpEnv = M.fromList
   ]
 
 mkTy :: String -> RType
-mkTy = {- Misc.traceShow "mkTy" . -} rebind . parseWith rtype "prims"  
+mkTy = {- Misc.traceShow "mkTy" . -} rebind . parseWith rtype "prims"
 
 
 
 rebind :: RType -> RType
-rebind t@(TBase {}) = t 
-rebind (TFun x s t) = TFun x' s' t' 
-  where 
+rebind t@TBase {}   = t
+rebind (TFun x s t) = TFun x' s' t'
+  where
     x' = F.mappendSym "spec#" x
     s' = subst (rebind s) x x'
     t' = subst (rebind t) x x'
