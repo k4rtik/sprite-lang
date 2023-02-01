@@ -2,7 +2,6 @@ module Language.Sprite.Common.Misc where
 
 import qualified Data.Map  as M
 import qualified Data.List as L
--- import           Data.Monoid
 import           Data.Maybe (fromMaybe)
 import           Data.Char (isSpace)
 import           Control.Exception
@@ -18,7 +17,7 @@ import           System.Console.CmdArgs.Verbosity (whenLoud)
 import           Debug.Trace (trace)
 
 safeZip :: [a] -> [b] -> Maybe [(a, b)]
-safeZip xs ys 
+safeZip xs ys
   | length xs == length ys = Just (zip xs ys)
   | otherwise              = Nothing
 
@@ -52,7 +51,7 @@ trim :: String -> String
 trim = f . f  where f = reverse . dropWhile isSpace
 
 trimEnd :: String -> String
-trimEnd = reverse . dropWhile isSpace . reverse  
+trimEnd = reverse . dropWhile isSpace . reverse
 
 executeShellCommand :: FilePath -> String -> Int -> IO ExitCode
 executeShellCommand logF cmd n = fromMaybe (ExitFailure 100) <$> body

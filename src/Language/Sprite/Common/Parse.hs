@@ -29,7 +29,7 @@ whiteSpace = FP.spaces
 reservedOp = FP.reservedOp
 
 -- | list of reserved words
-keywords :: S.Set String 
+keywords :: S.Set String
 keywords = S.fromList
   [ "if"      , "else"
   , "true"    , "false"
@@ -48,28 +48,28 @@ myPredP :: FP.Parser F.Expr
 myPredP = unTupleApp <$> FP.predP
 
 myExprP :: FP.Parser F.Expr
-myExprP = unTupleApp <$> FP.exprP 
+myExprP = unTupleApp <$> FP.exprP
 
 unTupleApp :: F.Expr -> F.Expr
 unTupleApp = FV.mapExpr go
   where
-    go e@(F.EApp {}) = Mb.fromMaybe e (unTuple e)
-    go e = e 
+    go e@F.EApp {} = Mb.fromMaybe e (unTuple e)
+    go e = e
 
 unTuple :: F.Expr -> Maybe F.Expr
-unTuple e = 
+unTuple e =
   case F.splitEApp e of
-    (f, [arg]) -> 
+    (f, [arg]) ->
       case F.splitEApp arg of
-        (t, args) -> if isTupleCon (length args) t 
+        (t, args) -> if isTupleCon (length args) t
                      then Just (F.eApps f args)
                      else Nothing
     _ -> Nothing
 
 isTupleCon :: Int -> F.Expr -> Bool
 isTupleCon n (F.EVar x) = x == tupleSym n
-isTupleCon _ _          = False 
+isTupleCon _ _          = False
 
 tupleSym :: Int -> F.Symbol
-tupleSym n = F.symbol $ "(" ++ replicate (n-1) ',' ++ ")"  
+tupleSym n = F.symbol $ "(" ++ replicate (n-1) ',' ++ ")"
 ---------------------------------------------------------------------------------------------------------
