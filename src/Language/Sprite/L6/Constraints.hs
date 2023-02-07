@@ -178,17 +178,6 @@ meet t1 t2 = case rTypeReft t2 of
                Just r2 -> strengthenTop t1 r2
                Nothing -> t1
 
-{-
-extCaseEnv :: Env -> [Bind F.SrcSpan] -> RType -> Maybe Env
-extCaseEnv g (z:zs) (TFun _ s t) = extCaseEnv g' zs t
-  where
-    g'                           = extEnv g (F.symbol z) s
-extCaseEnv g []     _          = Just g
-extCaseEnv _ _      _          = Nothing
-
--}
-
-
 
 -------------------------------------------------------------------------------
 -- | CG Monad -----------------------------------------------------------------

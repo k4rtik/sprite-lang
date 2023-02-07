@@ -45,6 +45,7 @@ binOpEnv = M.fromList
   , (BGt   , mkTy "x:'a => y:'a => bool[v|v <=> (x >  y)]")
   , (BGe   , mkTy "x:'a => y:'a => bool[v|v <=> (x >= y)]")
   , (BEq   , mkTy "x:'a => y:'a => bool[v|v <=> (x == y)]")
+  , (BNe   , mkTy "x:'a => y:'a => bool[v|v <=> (x != y)]")
 
   , (BAnd  , mkTy "x:bool => y:bool => bool[v|v <=> (x && y)]")
   , (BOr   , mkTy "x:bool => y:bool => bool[v|v <=> (x || y)]")

@@ -85,7 +85,6 @@ ctorResP =  optional (FP.reservedOp "=>" *> FP.brackets concReftB)
 mkCtor :: Ident -> [Ident] -> [RVar] -> Ctor -> (SrcBind, RType)
 mkCtor tc tvs rvs c  = (dc, closeType rvs xts dcRes)
   where
-    -- dcType        = foldr (\(x, t) s -> TFun x t s) dcRes xts
     dcRes         = TCon tc (rVar <$> tvs) (rVarARef <$> rvs) dcReft
     Ctor dc xts r = c
     dcReft        = Mb.fromMaybe mempty r
@@ -145,6 +144,7 @@ op =  (FP.reservedOp "*"    >> pure BTimes)
   <|> (FP.reservedOp "<"    >> pure BLt   )
   <|> (FP.reservedOp "<="   >> pure BLe   )
   <|> (FP.reservedOp "=="   >> pure BEq   )
+  <|> (FP.reservedOp "!="   >> pure BNe   )
   <|> (FP.reservedOp ">"    >> pure BGt   )
   <|> (FP.reservedOp ">="   >> pure BGe   )
   <|> (FP.reservedOp "&&"   >> pure BOr   )
@@ -235,14 +235,6 @@ tyBindP kw = do
   annR
   return (x, t)
 
-{-
-between :: FP.Parser () -> FP.Parser () -> FP.Parser a -> FP.Parser a
-between lP rP xP =  do
-  lP
-  x <- xP
-  rP
-  return x
- -}
 mkDecl :: Ann -> SrcDecl -> SrcDecl
 mkDecl (Just (x, t)) (Decl b e l)
   | x == bindId b    = Decl b (EAnn  e (generalize t) (label e)) l
@@ -352,16 +344,16 @@ mid = FP.reservedOp "|"
 question :: FP.Parser ()
 question = FP.reservedOp "?"
 
--- >>> (parseWith rtype "" "int{v|v = 3}")
+-- >>> (parseWith rtype "" "int[v|v = 3]")
 -- TBase TInt (v = 3)
 
--- >>> (parseWith rtype "" "int{v|v = x + y}")
+-- >>> (parseWith rtype "" "int[v|v = x + y]")
 -- TBase TInt (v = (x + y))
 
 -- >>> (parseWith rtype "" "int")
 -- TBase TInt true
 
--- >>> parseWith funArg "" "x:int"
+-- >>> parseWith funArgP "" "x:int"
 -- ("x",TBase TInt true)
 
 -- >>> parseWith rfun "" "int => int"
@@ -370,11 +362,11 @@ question = FP.reservedOp "?"
 -- >>> parseWith rfun "" "x:int => int"
 -- TFun "x" (TBase TInt true) (TBase TInt true)
 
--- >>> parseWith rfun "" "x:int => int{v|0 < v}"
+-- >>> parseWith rfun "" "x:int => int[v|0 < v]"
 -- TFun "x" (TBase TInt true) (TBase TInt (0 < v))
 
--- >>> parseWith rfun "" "x:int => int{v|0 <= v}"
+-- >>> parseWith rfun "" "x:int => int[v|0 <= v]"
 -- TFun "x" (TBase TInt true) (TBase TInt (0 <= v))
 
--- >>> parseWith rfun "" "x:int{v|0 <= v} => int{v|0 <= v}"
+-- >>> parseWith rfun "" "x:int[v|0 <= v] => int[v|0 <= v]"
 -- TFun "x" (TBase TInt (0 <= v)) (TBase TInt (0 <= v))

@@ -102,6 +102,7 @@ data PrimOp
   | BLt
   | BLe
   | BEq
+  | BNe
   | BGt
   | BGe
   | BAnd
@@ -164,12 +165,12 @@ data Alt a = Alt
 
 -- | Terms -----------------------------------------------------------------------
 data Expr a
-  = EImm !(Imm  a)                      a    -- ^ x,y,z,... 1,2,3...
-  | EFun !(Bind a)  !(Expr a)           a    -- ^ \x -> e
-  | EApp !(Expr a)  !(Imm  a)           a    -- ^ e v
-  | ELet !(Decl a)  !(Expr a)           a    -- ^ let/rec x = e1 in e2
-  | EAnn !(Expr a)  !RType              a    -- ^ e:t
-  | EIf  !(Imm  a)  !(Expr a) !(Expr a) a    -- ^ if v e1 e2
+  = EImm  !(Imm  a)                     a    -- ^ x,y,z,... 1,2,3...
+  | EFun  !(Bind a) !(Expr a)           a    -- ^ \x -> e
+  | EApp  !(Expr a) !(Imm  a)           a    -- ^ e v
+  | ELet  !(Decl a) !(Expr a)           a    -- ^ let/rec x = e1 in e2
+  | EAnn  !(Expr a) !RType              a    -- ^ e:t
+  | EIf   !(Imm  a) !(Expr a) !(Expr a) a    -- ^ if v e1 e2
   | ETLam !TVar     !(Expr a)           a    -- ^ Λ a. e (type abstraction)
   | ETApp !(Expr a) !RType              a    -- ^ e [t]  (type application)
   | ERApp !(Expr a)                     a    -- ^ e [?]  (reft application)
